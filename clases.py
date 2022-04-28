@@ -11,9 +11,5 @@ class Error:
         self.tipo = tipo
         self.lexema = lexema
         self.columna = columna - len(lexema)
+        self.columaError = 0
 
-    def getInfo(self):
-        print('\n***** ***** ***** *****')
-        print('Tipo:', self.tipo)
-        print('Lexema:', self.lexema)
-        print('Columna:', self.columna)

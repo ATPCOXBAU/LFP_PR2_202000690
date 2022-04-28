@@ -63,6 +63,7 @@ class Analizadorexico:
         columna = 1
         estado = 0
         index = 0
+        largo =len(entrada)
         while index < len(entrada):
             caracter = entrada[index]
             if estado == 0:
@@ -122,17 +123,32 @@ class Analizadorexico:
                         buffer = ''
                         estado = 0
                 else:
-                    columna +=1
-                    token = tkk('ENTERO', buffer, columna)
-                    self.listaTokens.append(token)
-                    buffer = ''
-                    estado = 0
+                    if caracter != centinela:
+                        columna +=1
+                        token = tkk('ENTERO', buffer, columna)
+                        self.listaTokens.append(token)
+                        buffer = ''
+                        estado = 0
+                    elif caracter == centinela:
+                        index -= 1
+                        columna += 1
+                        token = tkk('ENTERO', buffer, columna)
+                        self.listaTokens.append(token)
+                        buffer = ''
+                        estado = 0
 
                 if caracter == '-':
                     columna +=1
                     token = tkk('GUION', caracter, columna)
                     self.listaTokens.append(token)
                     estado = 0
+
+                if caracter == '>':
+                    columna += 1
+                    token = tkk('MAYORQUE', caracter, columna)
+                    self.listaTokens.append(token)
+                    estado = 0
+
 
             elif estado == 2:
                 if caracter == '-' or re.search('[A-Za-z_ÑñÁáÉéÍíÓóÚú]', caracter) or caracter == '_' or caracter.isdigit():
@@ -186,6 +202,7 @@ class Analizadorexico:
                         token = tkk(tipoToken, buffer, columna)
                         self.listaTokens.append(token)
                         buffer = ''
+                        index -=1
                         estado = 0
                     else:
 
