@@ -2,6 +2,7 @@ from tkinter import *
 from analizadorlexico import Analizadorexico
 from analizadorsintactico import analizadorsintactico
 from reportes import reportes
+import webbrowser
 BG_GRAY = "#EAEDDE"
 BG_COLOR = "white"
 TEXT_COLOR = "black"
@@ -66,11 +67,11 @@ class Interface:
         btnlogtoken.place(x=750, y=160)
 
         btnusuario = Button(self.root, text="Manual de Usuario", font=FONT_BOLD, width=20, bg="#007CAD",
-                            command=lambda: self.enviarmensaje())
+                            command=lambda: self.genmanualUser())
         btnusuario.place(x=750, y=210)
 
         btnrtecnico = Button(self.root, text="Manual Tecnico", font=FONT_BOLD, width=20, bg="#007CAD",
-                             command=lambda: self.enviarmensaje())
+                             command=lambda: self.fenmanualTec())
         btnrtecnico.place(x=750, y=260)
         self.InfoBot()
         self.root.mainloop()
@@ -153,4 +154,9 @@ class Interface:
         self.text.configure(state=DISABLED)
         self.text.see(END)
 
+    def genmanualUser(self):
+        webbrowser.get('windows-default').open('Musuario.pdf')
+
+    def fenmanualTec(self):
+        webbrowser.get('windows-default').open('Mtecnico.pdf')
 
